@@ -24,11 +24,53 @@
         <h2>Done</h2>
       </section>
       <!-- form & add button -->
-      <button class="addNew"></button>
-      <form action="">
-        <h2 class="newTask">New Task</h2>
-        
-      </form>
+      <section id="addNewTask">
+        <button class="addNew"></button>
+        <form>
+          <h2 class="newTask">New Task</h2>
+          <label for="taskName">Task's name</label>
+          <input type="text" name="taskName" id="taskName" />
+
+          <label for="describe">Description</label>
+          <textarea
+            type="text"
+            name="describe"
+            id="describe"
+            rows="5"
+            cols="33"
+          ></textarea>
+
+          <label for="estimate">Estimate</label>
+          <input type="time" name="estimate" id="estimate" />
+
+          <label for="deadline">Deadline</label>
+          <input type="date" name="deadline" id="deadline" />
+
+          <fieldset id="priority">
+            <legend>Priority</legend>
+            <div class="wrap">
+              <input type="radio" name="priority" value="high" id="high" />
+              <label for="high">!!! High</label>
+            </div>
+            <div class="wrap">
+              <input type="radio" name="priority" value="medium" id="medium" />
+              <label for="medium">!! Medium</label>
+            </div>
+            <div class="wrap">
+              <input type="radio" name="priority" value="low" id="low" />
+              <label for="low">! Low</label>
+            </div>
+          </fieldset>
+
+          <!-- Automate the time stamp with JS -->
+          <label for="date_added">Date Added</label>
+          <input type="datetime-local" name="date_added" id="date_added" />
+          <label for="colorCode">Color</label>
+          <input type="color" name="colorCode" id="colorCode" />
+
+          <button type="submit" class="add">Add</button>
+        </form>
+      </section>
     </main>
 
     <!-- Clone template -->
