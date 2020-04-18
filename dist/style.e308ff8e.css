@@ -6,6 +6,12 @@
 :root {
   --headingsFont: "Pacifico", cursive;
   --textFont: "Open Sans", sans-serif;
+  --boxShadow: 2px 2px 10px lightslategrey;
+  --roundBorders: 0.8vw;
+}
+body {
+  overflow-y: hidden;
+  overflow-x: scroll;
 }
 h1,
 h2 {
@@ -18,32 +24,71 @@ h1 {
 section > h2 {
   font-size: 1.8rem;
 }
+fieldset,
+label,
+p {
+  font-family: var(--textFont);
+}
+label {
+  margin-top: 0.3vw;
+}
 main {
   display: grid;
-  gap: 2vw;
+  gap: 0.5rem;
   grid-template-columns: repeat(4, minmax(min(100%, 300px), 1fr));
+}
+main > section {
+  border: 0.3rem solid orange;
+  border-radius: var(--roundBorders);
+  height: 100%;
+  margin: 1vw;
+  padding: 0.8vw;
+}
+main > section:last-child {
+  border: none;
+  display: flex;
+  flex-flow: column wrap;
+}
+form,
+fieldset {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  padding: 1.5vw 1vw;
+}
+form {
+  border: 3px solid yellowgreen;
+  box-shadow: var(--boxShadow);
+  border-radius: var(--roundBorders);
+}
+fieldset#priority {
+  margin-top: 0.3rem;
+  border: 1px solid darkgreen;
 }
 button {
   all: initial;
-  border: 0.2rem solid yellowgreen;
   border-radius: 0.3vw;
+  font-family: var(--textFont);
   text-align: center;
 }
-.addNew {
-  margin-top: 1vw;
+button.addNew {
+  cursor: pointer;
+  margin-top: -1vw;
   background-image: url("/plus-solid.8b236e22.svg");
   background-repeat: no-repeat;
-  background-size: 40%;
   background-position: center;
+  background-size: 40%;
+  background-color: transparent;
   height: 3vw;
   width: 4vw;
 }
-
-main > section {
-  border: 0.3rem solid orange;
-  height: 100vh;
-  margin: 1vw;
-  padding: 0.8vw;
+button.add {
+  background-color: yellowgreen;
+  width: 5vw;
+  align-self: flex-end;
+}
+.hidden {
+  display: none;
 }
 
 
