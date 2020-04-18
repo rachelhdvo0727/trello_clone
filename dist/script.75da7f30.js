@@ -123,7 +123,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.form = exports.addNewBtn = exports.dataTrello = exports.apiKey = void 0;
+exports.clone = exports.cardTemplate = exports.displayList = exports.form = exports.addNewBtn = exports.dataTrello = exports.apiKey = void 0;
 var apiKey = "5e956ffd436377171a0c230f";
 exports.apiKey = apiKey;
 var dataTrello = "https://frontendspring20-e4cd.restdb.io/rest/trelloclone";
@@ -132,6 +132,12 @@ var addNewBtn = document.querySelector(".addNew");
 exports.addNewBtn = addNewBtn;
 var form = document.querySelector("form");
 exports.form = form;
+var displayList = document.querySelector("#todoList > .list");
+exports.displayList = displayList;
+var cardTemplate = document.querySelector("template").content;
+exports.cardTemplate = cardTemplate;
+var clone = cardTemplate.cloneNode(true);
+exports.clone = clone;
 },{}],"script.js":[function(require,module,exports) {
 "use strict";
 
@@ -142,6 +148,51 @@ window.addEventListener("DOMContentLoaded", start);
 function start() {
   _vars.addNewBtn.addEventListener("click", function (evt) {
     _vars.form.classList.toggle("hidden");
+  });
+
+  getData();
+}
+
+function getData() {
+  document.querySelector("#todoList > .list").innerHTML = "";
+  fetch(_vars.dataTrello, {
+    method: "get",
+    headers: {
+      accept: "application/json",
+      "x-apikey": _vars.apiKey,
+      "cache-control": "no-cache"
+    }
+  }).then(function (e) {
+    return e.json();
+  }).then(showData);
+}
+
+function showData(e) {
+  e.forEach(showTasks);
+}
+
+function showTasks(task) {
+  _vars.clone.querySelector(".title").textContent = task.task_name;
+  _vars.clone.querySelector(".descr").textContent = task.description;
+  _vars.clone.querySelector(".estimate").textContent = task.estimate;
+
+  _vars.displayList.appendChild(_vars.clone);
+}
+
+function postData(data) {
+  var post = JSON.stringify(data);
+  fetch(endpoint, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": _vars.apiKey,
+      "cache-control": "no-cache"
+    },
+    body: postData
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    return showTasks(data);
   });
 }
 },{"./partials/vars":"partials/vars.js"}],"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -172,7 +223,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51041" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56072" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

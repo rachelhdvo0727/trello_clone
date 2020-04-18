@@ -1,95 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Pacifico&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <title>Trello Clone</title>
-  </head>
-  <body>
-    <h1>Trello Board</h1>
-    <main>
-      <!-- 3 Lists -->
-      <section id="todoList">
-        <h2>To-do</h2>
-      </section>
-      <section id="progressList">
-        <h2>In progress</h2>
-      </section>
-      <section id="doneList">
-        <h2>Done</h2>
-      </section>
-      <!-- form & add button -->
-      <section id="addNewTask">
-        <button class="addNew"></button>
-        <form class="hidden">
-          <h2 class="newTask">New Task</h2>
-          <label for="taskName">Task's name</label>
-          <input type="text" name="taskName" id="taskName" />
 
-          <label for="describe">Description</label>
-          <textarea
-            type="text"
-            name="describe"
-            id="describe"
-            rows="5"
-            cols="33"
-          ></textarea>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Pacifico&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Trello Clone</title>
+</head>
 
-          <label for="estimate">Estimate</label>
-          <input type="time" name="estimate" id="estimate" />
+<body>
+  <h1>Trello Board</h1>
+  <main>
+    <!-- 3 Lists -->
+    <section id="todoList">
+      <h2>To-do</h2>
+      <div class="list"></div>
+    </section>
+    <section id="progressList">
+      <h2>In progress</h2>
+      <div class="list"></div>
+    </section>
+    <section id="doneList">
+      <h2>Done</h2>
+      <div class="list"></div>
+    </section>
+    <!-- form & add button -->
+    <section id="addNewTask">
+      <button class="addNew"></button>
+      <form class="hidden">
+        <h2 class="newTask">New Task</h2>
+        <label for="taskName">Task's name</label>
+        <input type="text" name="taskName" id="taskName" />
 
-          <label for="deadline">Deadline</label>
-          <input type="date" name="deadline" id="deadline" />
+        <label for="describe">Description</label>
+        <textarea type="text" name="describe" id="describe" rows="5" cols="33"></textarea>
 
-          <fieldset id="priority">
-            <legend>Priority</legend>
-            <ul>
-              <li>
-                <input type="radio" name="priority" value="high" id="high" />
-                <label for="high">!!! High</label>
-              </li>
-              <li>
-                <input
-                  type="radio"
-                  name="priority"
-                  value="medium"
-                  id="medium"
-                />
-                <label for="medium">!! Medium</label>
-              </li>
-              <li>
-                <input type="radio" name="priority" value="low" id="low" />
-                <label for="low">! Low</label>
-              </li>
-            </ul>
-          </fieldset>
+        <label for="estimate">Estimate</label>
+        <input type="text" name="estimate" id="estimate" />
 
-          <!-- Automate the time stamp with JS -->
-          <label for="date_added">Date Added</label>
-          <input type="datetime-local" name="date_added" id="date_added" />
-          <label for="colorCode">Color</label>
-          <input type="color" name="colorCode" id="colorCode" />
+        <label for="deadline">Deadline</label>
+        <input type="date" name="deadline" id="deadline" />
 
-          <button type="submit" class="add">Add</button>
-        </form>
-      </section>
-    </main>
+        <fieldset id="priority">
+          <legend>Priority</legend>
+          <ul>
+            <li>
+              <input type="radio" name="priority" value="high" id="high" />
+              <label for="high">!!! High</label>
+            </li>
+            <li>
+              <input type="radio" name="priority" value="medium" id="medium" />
+              <label for="medium">!! Medium</label>
+            </li>
+            <li>
+              <input type="radio" name="priority" value="low" id="low" />
+              <label for="low">! Low</label>
+            </li>
+          </ul>
+        </fieldset>
 
-    <!-- Clone template -->
-    <template id="card">
-      <h1 class="title"></h1>
+        <!-- Automate the time stamp with JS -->
+        <label for="date_added">Date Added</label>
+        <input type="datetime-local" name="date_added" id="date_added" />
+        <label for="colorCode">Color</label>
+        <input type="color" name="colorCode" id="colorCode" />
+
+        <button type="submit" class="add">Add</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Clone template -->
+  <template>
+    <div class="cardcontainer">
+      <button class="close">✘</button>
+      <h3 class="title"></h3>
       <p class="descr"></p>
-      <button class="editbtn"></button>
-      <div class="movebtns_container">
-        <button class="mvleft"></button>
-        <button class="mvright"></button>
+      <p class="estimate"></p>
+      <div class="btns_container">
+        <button class="editbtn"></button>
+        <div class="movebtns">
+          <button class="mvleft">◀︎</button>
+          <button class="mvright">▶︎</button>
+        </div>
       </div>
-    </template>
-    <script src="script.js"></script>
-  </body>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+
 </html>

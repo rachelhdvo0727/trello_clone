@@ -7,6 +7,7 @@
   --headingsFont: "Pacifico", cursive;
   --textFont: "Open Sans", sans-serif;
   --boxShadow: 2px 2px 10px lightslategrey;
+  --boxShadow2: 1px 1px 5px lightslategrey;
   --roundBorders: 0.8vw;
 }
 body {
@@ -20,6 +21,9 @@ h2 {
 h1 {
   text-align: center;
   margin-top: 1vw;
+}
+h3{
+  font-family: var(--textFont);
 }
 section > h2 {
   font-size: 1.8rem;
@@ -82,27 +86,57 @@ button {
   border-radius: 0.3vw;
   font-family: var(--textFont);
   text-align: center;
+  cursor: pointer;
 }
 button.addNew {
-  cursor: pointer;
   z-index: 999;
   margin-top: -1vw;
+  background: url("/plus-solid.8b236e22.svg") no-repeat center 100% transparent;
   background-image: url("/plus-solid.8b236e22.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 40%;
-  background-color: transparent;
-  height: 3vw;
-  width: 4vw;
+  height: 2vw;
+  width: 3vw;
 }
 button.add {
-  cursor: pointer;
   background-color: yellowgreen;
   width: 5vw;
   align-self: flex-end;
 }
+button.editbtn{
+  background: url("/pencil-alt-solid.cab88e6f.svg") no-repeat center 100% transparent;
+  height: 1.2vw;
+  width: 1.7vw;
+}
 .hidden {
   display: none;
+}
+.cardcontainer{
+background-color: #effdae;
+padding: 1vw;
+box-shadow: var(--boxShadow2);
+}
+.btns_container{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin-top: 0.8vw;
+}
+.movebtns{
+  /* flex child */
+  align-self:flex-end;
+   /* flex parent */
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+.close{
+  position: absolute;
+  top: 11vw;
+  left: 21vw;
+  font-size: 1.2rem;
+}
+.title:hover{
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 /*# sourceMappingURL=/style.e308ff8e.css.map */
