@@ -31,7 +31,7 @@ button {
 }
 .addNew {
   margin-top: 1vw;
-  background-image: url("assets/plus-solid.svg");
+  background-image: url("/plus-solid.8b236e22.svg");
   background-repeat: no-repeat;
   background-size: 40%;
   background-position: center;
@@ -45,3 +45,6 @@ main > section {
   margin: 1vw;
   padding: 0.8vw;
 }
+
+
+/*# sourceMappingURL=/style.e308ff8e.css.map */
