@@ -117,9 +117,34 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"script.js":[function(require,module,exports) {
+})({"partials/vars.js":[function(require,module,exports) {
 "use strict";
-},{}],"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.form = exports.addNewBtn = exports.dataTrello = exports.apiKey = void 0;
+var apiKey = "5e956ffd436377171a0c230f";
+exports.apiKey = apiKey;
+var dataTrello = "https://frontendspring20-e4cd.restdb.io/rest/trelloclone";
+exports.dataTrello = dataTrello;
+var addNewBtn = document.querySelector(".addNew");
+exports.addNewBtn = addNewBtn;
+var form = document.querySelector("form");
+exports.form = form;
+},{}],"script.js":[function(require,module,exports) {
+"use strict";
+
+var _vars = require("./partials/vars");
+
+window.addEventListener("DOMContentLoaded", start);
+
+function start() {
+  _vars.addNewBtn.addEventListener("click", function (evt) {
+    _vars.form.classList.toggle("hidden");
+  });
+}
+},{"./partials/vars":"partials/vars.js"}],"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -147,7 +172,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53850" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51041" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -26,7 +26,7 @@
       <!-- form & add button -->
       <section id="addNewTask">
         <button class="addNew"></button>
-        <form>
+        <form class="hidden">
           <h2 class="newTask">New Task</h2>
           <label for="taskName">Task's name</label>
           <input type="text" name="taskName" id="taskName" />
@@ -48,18 +48,25 @@
 
           <fieldset id="priority">
             <legend>Priority</legend>
-            <div class="wrap">
-              <input type="radio" name="priority" value="high" id="high" />
-              <label for="high">!!! High</label>
-            </div>
-            <div class="wrap">
-              <input type="radio" name="priority" value="medium" id="medium" />
-              <label for="medium">!! Medium</label>
-            </div>
-            <div class="wrap">
-              <input type="radio" name="priority" value="low" id="low" />
-              <label for="low">! Low</label>
-            </div>
+            <ul>
+              <li>
+                <input type="radio" name="priority" value="high" id="high" />
+                <label for="high">!!! High</label>
+              </li>
+              <li>
+                <input
+                  type="radio"
+                  name="priority"
+                  value="medium"
+                  id="medium"
+                />
+                <label for="medium">!! Medium</label>
+              </li>
+              <li>
+                <input type="radio" name="priority" value="low" id="low" />
+                <label for="low">! Low</label>
+              </li>
+            </ul>
           </fieldset>
 
           <!-- Automate the time stamp with JS -->
