@@ -19,42 +19,50 @@
     </section>
     <section id="progressList">
       <h2>In progress</h2>
-      <div class="list"></div>
+      <div class="list2"></div>
     </section>
     <section id="doneList">
       <h2>Done</h2>
-      <div class="list"></div>
+      <div class="list3"></div>
     </section>
     <!-- form & add button -->
     <section id="addNewTask">
       <button class="addNew"></button>
-      <form class="hidden">
+      <form class="hidden" data-state="post">
         <h2 class="newTask">New Task</h2>
+
         <label for="taskName">Task's name</label>
-        <input type="text" name="taskName" id="taskName" />
+        <input type="text" name="taskName" id="taskName" required />
+        <p class="msg">Please provide task's name</p>
 
         <label for="describe">Description</label>
         <textarea type="text" name="describe" id="describe" rows="5" cols="33"></textarea>
 
         <label for="estimate">Estimate</label>
-        <input type="text" name="estimate" id="estimate" />
+        <input type="text" name="estimate" id="estimate" required />
+        <p class="msg">How long does it take to complete the task?</p>
 
         <label for="deadline">Deadline</label>
-        <input type="date" name="deadline" id="deadline" />
+        <input type="datetime-local" name="deadline" id="deadline" value="DD.MM.YYYY-hh:mm" required />
+        <p class="msg">When is the dealine?</p>
+
+        <label for="creator">Created by</label>
+        <input type="text" name="creator" id="creator" required />
+        <p class="msg">Who are you?</p>
 
         <fieldset id="priority">
           <legend>Priority</legend>
           <ul>
             <li>
-              <input type="radio" name="priority" value="high" id="high" />
+              <input type="radio" name="priority" value="!!! High" id="high" />
               <label for="high">!!! High</label>
             </li>
             <li>
-              <input type="radio" name="priority" value="medium" id="medium" />
+              <input type="radio" name="priority" value="!! Medium" id="medium" />
               <label for="medium">!! Medium</label>
             </li>
             <li>
-              <input type="radio" name="priority" value="low" id="low" />
+              <input type="radio" name="priority" value="! Low" id="low" />
               <label for="low">! Low</label>
             </li>
           </ul>
@@ -62,7 +70,7 @@
 
         <!-- Automate the time stamp with JS -->
         <label for="date_added">Date Added</label>
-        <input type="datetime-local" name="date_added" id="date_added" />
+        <input type="datetime-local" name="date_added" id="date_added" value="DD.MM.YYYY" />
         <label for="colorCode">Color</label>
         <input type="color" name="colorCode" id="colorCode" />
 
@@ -73,11 +81,16 @@
 
   <!-- Clone template -->
   <template>
-    <div class="cardcontainer">
+    <article id="cardcontainer">
       <button class="close">✘</button>
       <h3 class="title"></h3>
-      <p class="descr"></p>
-      <p class="estimate"></p>
+      <div class="wrap">
+        <!-- <p class="descr"></p> -->
+        <p class="priority"></p>
+        <p class="estimate"></p>
+      </div>
+      <p class="deadline"></p>
+      <p class="creator"></p>
       <div class="btns_container">
         <button class="editbtn"></button>
         <div class="movebtns">
@@ -85,7 +98,7 @@
           <button class="mvright">▶︎</button>
         </div>
       </div>
-    </div>
+    </article>
   </template>
 
   <script src="script.js"></script>

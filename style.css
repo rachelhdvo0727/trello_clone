@@ -33,8 +33,17 @@ label,
 p {
   font-family: var(--textFont);
 }
-label {
-  margin-top: 0.3vw;
+p.creator {
+  font-size: 0.8rem;
+}
+form > label , fieldset > legend{
+  margin-top: 0.5vw;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+fieldset > ul > li >label{
+  font-weight: normal;
+  font-size: 0.8rem;
 }
 main {
   display: grid;
@@ -109,10 +118,11 @@ button.editbtn{
 .hidden {
   display: none;
 }
-.cardcontainer{
+article#cardcontainer{
 background-color: #effdae;
 padding: 1vw;
 box-shadow: var(--boxShadow2);
+margin-bottom: 1vw;
 }
 .btns_container{
   display: flex;
@@ -126,15 +136,32 @@ box-shadow: var(--boxShadow2);
    /* flex parent */
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+}
+.mvleft{
+  margin-right: 0.5vw;
 }
 .close{
-  position: absolute;
-  top: 11vw;
-  left: 21vw;
+  float: right;
   font-size: 1.2rem;
 }
 .title:hover{
   cursor: pointer;
   text-decoration: underline;
+}
+.wrap{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5.5vw;
+}
+.invalid {
+  border: 2px solid orangered;
+}
+input + p{
+  display: none;
+  font-size: 0.7rem;
+  color: orangered;
+  font-style: italic;
+}
+input.invalid + p {
+  display: block;
 }

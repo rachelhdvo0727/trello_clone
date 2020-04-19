@@ -123,7 +123,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.clone = exports.cardTemplate = exports.displayList = exports.form = exports.addNewBtn = exports.dataTrello = exports.apiKey = void 0;
+exports.validForm = exports.cards = exports.errormsgs = exports.formElms = exports.elements = exports.clone = exports.cardTemplate = exports.displayList = exports.form = exports.addNewBtn = exports.dataTrello = exports.apiKey = void 0;
 var apiKey = "5e956ffd436377171a0c230f";
 exports.apiKey = apiKey;
 var dataTrello = "https://frontendspring20-e4cd.restdb.io/rest/trelloclone";
@@ -138,6 +138,16 @@ var cardTemplate = document.querySelector("template").content;
 exports.cardTemplate = cardTemplate;
 var clone = cardTemplate.cloneNode(true);
 exports.clone = clone;
+var elements = form.elements;
+exports.elements = elements;
+var formElms = form.querySelectorAll("input");
+exports.formElms = formElms;
+var errormsgs = document.querySelectorAll(".msg");
+exports.errormsgs = errormsgs;
+var cards = document.querySelectorAll("#cardcontainer");
+exports.cards = cards;
+var validForm = true;
+exports.validForm = validForm;
 },{}],"script.js":[function(require,module,exports) {
 "use strict";
 
@@ -150,6 +160,9 @@ function start() {
     _vars.form.classList.toggle("hidden");
   });
 
+  _vars.form.setAttribute("novalidate", true);
+
+  checkInputData();
   getData();
 }
 
@@ -172,16 +185,81 @@ function showData(e) {
 }
 
 function showTasks(task) {
-  _vars.clone.querySelector(".title").textContent = task.task_name;
-  _vars.clone.querySelector(".descr").textContent = task.description;
-  _vars.clone.querySelector(".estimate").textContent = task.estimate;
+  var cardTemplate = document.querySelector("template").content;
+  var clone = cardTemplate.cloneNode(true);
+  var isDown = false;
+  var mousePosition;
+  var offset = [0, 0];
+  clone.querySelector("#cardcontainer").dataset.id = task._id;
+  clone.querySelector(".title").textContent = task.task_name; //clone.querySelector(".descr").textContent = task.description;
 
-  _vars.displayList.appendChild(_vars.clone);
+  clone.querySelector(".estimate").textContent = "ETC: " + task.estimate;
+  clone.querySelector(".deadline").textContent = "Due: " + task.deadline;
+  clone.querySelector(".priority").textContent = task.priority;
+  clone.querySelector(".creator").textContent = "Created by: " + task.creator;
+  clone.querySelector("button.close").addEventListener("click", function (evt) {
+    deleteATask(task._id);
+  });
+  clone.querySelector("button.editbtn").addEventListener("click", function (evt) {
+    getTasktoEdit(task._id, prepareForEdit);
+  });
+
+  _vars.displayList.appendChild(clone);
+
+  document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).addEventListener("mousedown", function (evt) {
+    document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).style.position = "absolute";
+    isDown = true;
+    offset = [document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).offsetLeft - evt.clientX, document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).offsetTop - evt.clientY];
+  }, true);
+  document.addEventListener('mouseup', function () {
+    isDown = false;
+  }, true);
+  document.addEventListener('mousemove', function (event) {
+    event.preventDefault();
+
+    if (isDown) {
+      mousePosition = {
+        x: event.clientX,
+        y: event.clientY
+      };
+      document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).style.left = mousePosition.x + offset[0] + 'px';
+      document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).style.top = mousePosition.y + offset[1] + 'px';
+    }
+
+    var elemBelow = document.elementFromPoint(event.clientX, event.clientY);
+    document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).hidden = false;
+    if (!elemBelow) return;
+    var currentDroppable = null;
+    var droppableBelow = elemBelow.closest("#progressList > .list2, #doneList > .list3");
+
+    if (currentDroppable != droppableBelow) {
+      if (currentDroppable) {
+        // null when we were not over a droppable before this event
+        leaveDroppable(currentDroppable);
+      }
+
+      currentDroppable = droppableBelow;
+
+      if (currentDroppable) {
+        // null if we're not coming over a droppable now
+        // (maybe just left the droppable)
+        enterDroppable(currentDroppable);
+      }
+    }
+
+    function enterDroppable(elem) {
+      elem.style.background = 'pink';
+    }
+
+    function leaveDroppable(elem) {
+      elem.style.background = '';
+    }
+  }, true);
 }
 
 function postData(data) {
-  var post = JSON.stringify(data);
-  fetch(endpoint, {
+  var postData = JSON.stringify(data);
+  fetch(_vars.dataTrello, {
     method: "post",
     headers: {
       "Content-Type": "application/json; charset=utf-8",
@@ -193,6 +271,136 @@ function postData(data) {
     return res.json();
   }).then(function (data) {
     return showTasks(data);
+  });
+}
+
+function checkInputData() {
+  _vars.form.addEventListener("submit", function (evt) {
+    evt.preventDefault(); //turn off validation on submit
+
+    _vars.formElms.forEach(function (elm) {
+      elm.classList.remove("invalid");
+    });
+
+    if (_vars.form.checkValidity() && _vars.validForm) {
+      if (_vars.form.dataset.state === "post") {
+        //send data
+        postData({
+          task_name: _vars.elements.taskName.value,
+          description: _vars.elements.describe.value,
+          estimate: _vars.elements.estimate.value,
+          deadline: _vars.elements.deadline.value,
+          priority: _vars.elements.priority.value,
+          creator: _vars.elements.creator.value
+        });
+      } else {
+        putNewData({
+          task_name: _vars.elements.taskName.value,
+          description: _vars.elements.describe.value,
+          estimate: _vars.elements.estimate.value,
+          deadline: _vars.elements.deadline.value,
+          priority: _vars.elements.priority.value,
+          creator: _vars.elements.creator.value
+        }, _vars.form.dataset.id);
+      }
+
+      _vars.form.classList.add("hidden");
+
+      _vars.form.reset();
+    } else {
+      //loop validity
+      _vars.formElms.forEach(function (elm) {
+        elm.classList.remove("invalid");
+
+        if (!elm.checkValidity()) {
+          elm.classList.add("invalid");
+        }
+      });
+    }
+  });
+}
+
+function deleteATask(id) {
+  document.querySelector("#cardcontainer[data-id='".concat(id, "']")).remove();
+  fetch("".concat(_vars.dataTrello, "/").concat(id), {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": _vars.apiKey,
+      "cache-control": "no-cache"
+    }
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {});
+}
+
+function prepareForEdit(data) {
+  //show the form
+  _vars.form.classList.remove("hidden"); //populate the form
+
+
+  _vars.form.dataset.state = "put";
+  _vars.form.dataset.id = data._id;
+  _vars.elements.taskName.value = data.task_name;
+  _vars.elements.describe.value = data.description;
+  _vars.elements.estimate.value = data.estimate;
+  _vars.elements.deadline.value = data.deadline;
+  _vars.elements.creator.value = data.creator;
+  _vars.elements.priority.value = data.priority;
+  document.querySelector("input[value='".concat(priority, "']")).checked = true; //handle submits
+
+  document.querySelector(".add").addEventListener("click", function (e) {
+    checkInputData();
+
+    _vars.form.classList.add("hidden");
+
+    _vars.form.reset();
+  });
+}
+
+function getTasktoEdit(id, callback) {
+  fetch("".concat(_vars.dataTrello, "/").concat(id), {
+    method: "get",
+    headers: {
+      accept: "application/json",
+      "x-apikey": _vars.apiKey,
+      "cache-control": "no-cache"
+    }
+  }).then(function (e) {
+    return e.json();
+  }).then(function (data) {
+    return callback(data);
+  });
+}
+
+function putNewData(data, id) {
+  //document.querySelector(`#cardcontainer[data-id='${id}']`).replaceWith(data);
+  var putData = JSON.stringify(data);
+  fetch("".concat(_vars.dataTrello, "/").concat(id), {
+    method: "put",
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "x-apikey": _vars.apiKey,
+      "cache-control": "no-cache"
+    },
+    body: putData
+  }).then(function (res) {
+    return res.json();
+  }).then(function (data) {
+    //showTasks(data)
+    var copy = document.querySelector("article[data-id='".concat(id, "']"));
+    copy.querySelector(".title").textContent = data.task_name; //clone.querySelector(".descr").textContent = task.description;
+
+    copy.querySelector(".estimate").textContent = "ETC: " + data.estimate;
+    copy.querySelector(".deadline").textContent = "Due: " + data.deadline;
+    copy.querySelector(".priority").textContent = data.priority;
+    copy.querySelector(".creator").textContent = "Created by: " + data.creator;
+    copy.querySelector("button.close").addEventListener("click", function (evt) {
+      deleteATask(data._id);
+    });
+    copy.querySelector("button.editbtn").addEventListener("click", function (evt) {
+      getTasktoEdit(data._id, prepareForEdit);
+    });
   });
 }
 },{"./partials/vars":"partials/vars.js"}],"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -223,7 +431,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56072" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49985" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
