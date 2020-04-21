@@ -1,4 +1,3 @@
-"use strict";
 import {
   dataTrello,
   apiKey,
@@ -14,6 +13,7 @@ import {
   validForm,
 } from "./partials/vars";
 import moment from "moment";
+("use strict");
 let i = 0;
 window.addEventListener("DOMContentLoaded", start);
 
