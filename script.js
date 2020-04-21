@@ -13,6 +13,7 @@ import {
   errormsgs,
   validForm,
 } from "./partials/vars";
+import moment from "moment";
 let i = 0;
 window.addEventListener("DOMContentLoaded", start);
 
@@ -45,15 +46,19 @@ function showTasks(task) {
   const clone = cardTemplate.cloneNode(true);
   clone.querySelector("#cardcontainer").dataset.id = task._id;
   clone.querySelector(".title").textContent = task.task_name;
-  //clone.querySelector(".descr").textContent = task.description;
+  clone.querySelector(".descr").textContent = task.description;
   clone.querySelector(".estimate").textContent = "ETC: " + task.estimate;
-  clone.querySelector(".deadline").textContent = "Due: " + task.deadline;
+  clone.querySelector(".deadline").textContent =
+    "Due: " + moment(task.deadline).format("DD/MM/YYYY HH.MM");
   clone.querySelector(".priority").textContent = task.priority;
-  clone.querySelector(".creator").textContent = "Created by: " + task.creator;
-  clone.querySelector("button.close").addEventListener("click", (evt) => {
+  clone.querySelector(".creator").textContent = "By: " + task.creator;
+  clone.querySelector(".date_added").textContent = moment(
+    task.date_added
+  ).fromNow();
+  clone.querySelector("button.close").addEventListener("click", () => {
     deleteATask(task._id);
   });
-  clone.querySelector("button.editbtn").addEventListener("click", (evt) => {
+  clone.querySelector("button.editbtn").addEventListener("click", () => {
     getTasktoEdit(task._id, prepareForEdit);
   });
   clone.querySelector(".mvright").addEventListener("click", () => {
@@ -204,15 +209,25 @@ function putNewData(data, id) {
       copy.querySelector(".title").textContent = data.task_name;
       //clone.querySelector(".descr").textContent = task.description;
       copy.querySelector(".estimate").textContent = "ETC: " + data.estimate;
-      copy.querySelector(".deadline").textContent = "Due: " + data.deadline;
+      copy.querySelector(".deadline").textContent =
+        "Due: " + moment(data.deadline).format("DD/MM/YYYY HH.MM");
       copy.querySelector(".priority").textContent = data.priority;
       copy.querySelector(".creator").textContent =
         "Created by: " + data.creator;
-      copy.querySelector("button.close").addEventListener("click", (evt) => {
+      copy.querySelector(".date_added").textContent = moment(
+        data.date_added
+      ).fromNow();
+      copy.querySelector("button.close").addEventListener("click", () => {
         deleteATask(data._id);
       });
-      copy.querySelector("button.editbtn").addEventListener("click", (evt) => {
+      copy.querySelector("button.editbtn").addEventListener("click", () => {
         getTasktoEdit(data._id, prepareForEdit);
+      });
+      copy.querySelector(".mvright").addEventListener("click", () => {
+        moveRight(data._id);
+      });
+      copy.querySelector(".mvleft").addEventListener("click", () => {
+        moveLeft(data._id);
       });
     });
 }

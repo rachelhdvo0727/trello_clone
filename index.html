@@ -51,13 +51,7 @@
           <p class="msg">How long does it take to complete the task?</p>
 
           <label for="deadline">Deadline</label>
-          <input
-            type="datetime-local"
-            name="deadline"
-            id="deadline"
-            value="DD.MM.YYYY-hh:mm"
-            required
-          />
+          <input type="datetime-local" name="deadline" id="deadline" required />
           <p class="msg">When is the dealine?</p>
 
           <label for="creator">Created by</label>
@@ -94,12 +88,8 @@
 
           <!-- Automate the time stamp with JS -->
           <label for="date_added">Date Added</label>
-          <input
-            type="datetime-local"
-            name="date_added"
-            id="date_added"
-            value="DD.MM.YYYY"
-          />
+          <input type="datetime-local" name="date_added" id="date_added" />
+          
           <label for="colorCode">Color</label>
           <input type="color" name="colorCode" id="colorCode" />
 
@@ -114,12 +104,13 @@
         <button class="close">✘</button>
         <h3 class="title"></h3>
         <div class="wrap">
-          <!-- <p class="descr"></p> -->
+          <p class="descr hidden"></p>
           <p class="priority"></p>
           <p class="estimate"></p>
         </div>
         <p class="deadline"></p>
         <p class="creator"></p>
+        <p class="date_added"></p>
         <div class="btns_container">
           <button class="editbtn"></button>
           <div class="movebtns">

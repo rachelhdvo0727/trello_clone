@@ -11,7 +11,6 @@
   --roundBorders: 0.8vw;
 }
 body {
-  overflow-y: hidden;
   overflow-x: scroll;
 }
 h1,
@@ -22,7 +21,7 @@ h1 {
   text-align: center;
   margin-top: 1vw;
 }
-h3{
+h3 {
   font-family: var(--textFont);
 }
 section > h2 {
@@ -33,15 +32,17 @@ label,
 p {
   font-family: var(--textFont);
 }
-p.creator {
+p.creator,
+p.date_added {
   font-size: 0.8rem;
 }
-form > label , fieldset > legend{
+form > label,
+fieldset > legend {
   margin-top: 0.5vw;
   font-size: 0.8rem;
   font-weight: 600;
 }
-fieldset > ul > li >label{
+fieldset > ul > li > label {
   font-weight: normal;
   font-size: 0.8rem;
 }
@@ -51,7 +52,7 @@ main {
   grid-template-columns: repeat(4, minmax(min(100%, 300px), 1fr));
 }
 section#todoList,
-section#progressList, 
+section#progressList,
 section#doneList {
   border: 0.3rem solid orange;
   border-radius: var(--roundBorders);
@@ -70,7 +71,6 @@ fieldset {
   display: flex;
   flex-flow: column wrap;
   justify-content: space-around;
-  
 }
 form {
   z-index: 888;
@@ -79,7 +79,7 @@ form {
   border-radius: var(--roundBorders);
   position: absolute;
   padding: 3vw 1vw;
-  top:3vw;
+  top: 3vw;
 }
 fieldset#priority {
   margin-top: 0.3rem;
@@ -110,45 +110,46 @@ button.add {
   width: 5vw;
   align-self: flex-end;
 }
-button.editbtn{
-  background: url("/pencil-alt-solid.cab88e6f.svg") no-repeat center 100% transparent;
+button.editbtn {
+  background: url("/pencil-alt-solid.cab88e6f.svg") no-repeat center 100%
+    transparent;
   height: 1.2vw;
   width: 1.7vw;
 }
 .hidden {
   display: none;
 }
-article#cardcontainer{
-background-color: #effdae;
-padding: 1vw;
-box-shadow: var(--boxShadow2);
-margin-bottom: 1vw;
+article#cardcontainer {
+  background-color: #effdae;
+  padding: 1vw;
+  box-shadow: var(--boxShadow2);
+  margin-bottom: 1vw;
 }
-.btns_container{
+.btns_container {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   margin-top: 0.8vw;
 }
-.movebtns{
+.movebtns {
   /* flex child */
-  align-self:flex-end;
-   /* flex parent */
+  align-self: flex-end;
+  /* flex parent */
   display: flex;
   flex-flow: row wrap;
 }
-.mvleft{
+.mvleft {
   margin-right: 0.5vw;
 }
-.close{
+.close {
   float: right;
   font-size: 1.2rem;
 }
-.title:hover{
+.title:hover {
   cursor: pointer;
   text-decoration: underline;
 }
-.wrap{
+.wrap {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 5.5vw;
@@ -156,7 +157,7 @@ margin-bottom: 1vw;
 .invalid {
   border: 2px solid orangered;
 }
-input + p{
+input + p {
   display: none;
   font-size: 0.7rem;
   color: orangered;
@@ -165,5 +166,6 @@ input + p{
 input.invalid + p {
   display: block;
 }
+
 
 /*# sourceMappingURL=/style.e308ff8e.css.map */
