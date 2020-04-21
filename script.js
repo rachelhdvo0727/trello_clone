@@ -1,5 +1,5 @@
 "use strict";
-import moment from "moment";
+import moment from "./node_modules/moment/moment.js";
 import {
   dataTrello,
   apiKey,

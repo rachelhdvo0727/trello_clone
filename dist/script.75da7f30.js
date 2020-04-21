@@ -117,38 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"partials/vars.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.validForm = exports.cards = exports.errormsgs = exports.formElms = exports.elements = exports.clone = exports.cardTemplate = exports.displayList = exports.form = exports.addNewBtn = exports.dataTrello = exports.apiKey = void 0;
-var apiKey = "5e956ffd436377171a0c230f";
-exports.apiKey = apiKey;
-var dataTrello = "https://frontendspring20-e4cd.restdb.io/rest/trelloclone";
-exports.dataTrello = dataTrello;
-var addNewBtn = document.querySelector(".addNew");
-exports.addNewBtn = addNewBtn;
-var form = document.querySelector("form");
-exports.form = form;
-var displayList = document.querySelector("#todoList > .list");
-exports.displayList = displayList;
-var cardTemplate = document.querySelector("template").content;
-exports.cardTemplate = cardTemplate;
-var clone = cardTemplate.cloneNode(true);
-exports.clone = clone;
-var elements = form.elements;
-exports.elements = elements;
-var formElms = form.querySelectorAll("input");
-exports.formElms = formElms;
-var errormsgs = document.querySelectorAll(".msg");
-exports.errormsgs = errormsgs;
-var cards = document.querySelectorAll("#cardcontainer");
-exports.cards = cards;
-var validForm = true;
-exports.validForm = validForm;
-},{}],"node_modules/moment/moment.js":[function(require,module,exports) {
+})({"node_modules/moment/moment.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 //! moment.js
@@ -4754,12 +4723,43 @@ var global = arguments[3];
 
 })));
 
+},{}],"partials/vars.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.validForm = exports.cards = exports.errormsgs = exports.formElms = exports.elements = exports.clone = exports.cardTemplate = exports.displayList = exports.form = exports.addNewBtn = exports.dataTrello = exports.apiKey = void 0;
+var apiKey = "5e956ffd436377171a0c230f";
+exports.apiKey = apiKey;
+var dataTrello = "https://frontendspring20-e4cd.restdb.io/rest/trelloclone";
+exports.dataTrello = dataTrello;
+var addNewBtn = document.querySelector(".addNew");
+exports.addNewBtn = addNewBtn;
+var form = document.querySelector("form");
+exports.form = form;
+var displayList = document.querySelector("#todoList > .list");
+exports.displayList = displayList;
+var cardTemplate = document.querySelector("template").content;
+exports.cardTemplate = cardTemplate;
+var clone = cardTemplate.cloneNode(true);
+exports.clone = clone;
+var elements = form.elements;
+exports.elements = elements;
+var formElms = form.querySelectorAll("input");
+exports.formElms = formElms;
+var errormsgs = document.querySelectorAll(".msg");
+exports.errormsgs = errormsgs;
+var cards = document.querySelectorAll("#cardcontainer");
+exports.cards = cards;
+var validForm = true;
+exports.validForm = validForm;
 },{}],"script.js":[function(require,module,exports) {
 "use strict";
 
-var _vars = require("./partials/vars");
+var _moment = _interopRequireDefault(require("./node_modules/moment/moment.js"));
 
-var _moment = _interopRequireDefault(require("moment"));
+var _vars = require("./partials/vars");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4999,7 +4999,7 @@ function putNewData(data, id) {
     });
   });
 }
-},{"./partials/vars":"partials/vars.js","moment":"node_modules/moment/moment.js"}],"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./node_modules/moment/moment.js":"node_modules/moment/moment.js","./partials/vars":"partials/vars.js"}],"../../../../../../../.npm-global/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -5027,7 +5027,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49822" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57712" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
