@@ -1,3 +1,4 @@
+import moment from "moment";
 import {
   dataTrello,
   apiKey,
@@ -5,15 +6,12 @@ import {
   form,
   displayList,
   cards,
-  cardTemplate,
-  clone,
   elements,
   formElms,
   errormsgs,
   validForm,
 } from "./partials/vars";
-import moment from "moment";
-// ("use strict");
+
 let i = 0;
 window.addEventListener("DOMContentLoaded", start);
 
