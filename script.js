@@ -13,7 +13,7 @@ import {
   validForm,
 } from "./partials/vars";
 import moment from "moment";
-("use strict");
+// ("use strict");
 let i = 0;
 window.addEventListener("DOMContentLoaded", start);
 
