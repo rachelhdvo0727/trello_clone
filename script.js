@@ -1,6 +1,21 @@
 "use strict";
-import { dataTrello, apiKey, addNewBtn, form, displayList, cards, cardTemplate, clone, elements, formElms, errormsgs, validForm } from "./partials/vars";
+import {
+  dataTrello,
+  apiKey,
+  addNewBtn,
+  form,
+  displayList,
+  cards,
+  cardTemplate,
+  clone,
+  elements,
+  formElms,
+  errormsgs,
+  validForm,
+} from "./partials/vars";
+let i = 0;
 window.addEventListener("DOMContentLoaded", start);
+
 function start() {
   addNewBtn.addEventListener("click", (evt) => {
     form.classList.toggle("hidden");
@@ -28,9 +43,6 @@ function showData(e) {
 function showTasks(task) {
   const cardTemplate = document.querySelector("template").content;
   const clone = cardTemplate.cloneNode(true);
-  let isDown = false;
-  let mousePosition;
-  let offset = [0, 0];
   clone.querySelector("#cardcontainer").dataset.id = task._id;
   clone.querySelector(".title").textContent = task.task_name;
   //clone.querySelector(".descr").textContent = task.description;
@@ -44,52 +56,31 @@ function showTasks(task) {
   clone.querySelector("button.editbtn").addEventListener("click", (evt) => {
     getTasktoEdit(task._id, prepareForEdit);
   });
+  clone.querySelector(".mvright").addEventListener("click", () => {
+    moveRight(task._id);
+  });
+  clone.querySelector(".mvleft").addEventListener("click", () => {
+    moveLeft(task._id);
+  });
   displayList.appendChild(clone);
-  document.querySelector(`#cardcontainer[data-id='${task._id}']`).addEventListener("mousedown", (evt) => {
-    document.querySelector(`#cardcontainer[data-id='${task._id}']`).style.position = "absolute";
-    isDown = true;
-    offset = [
-      document.querySelector(`#cardcontainer[data-id='${task._id}']`).offsetLeft - evt.clientX,
-      document.querySelector(`#cardcontainer[data-id='${task._id}']`).offsetTop - evt.clientY
-    ];
-  }, true);
-  document.addEventListener('mouseup', function () {
-    isDown = false;
-  }, true);
-  document.addEventListener('mousemove', function (event) {
-    event.preventDefault();
-    if (isDown) {
-      mousePosition = {
-        x: event.clientX,
-        y: event.clientY
-      };
-      document.querySelector(`#cardcontainer[data-id='${task._id}']`).style.left = (mousePosition.x + offset[0]) + 'px';
-      document.querySelector(`#cardcontainer[data-id='${task._id}']`).style.top = (mousePosition.y + offset[1]) + 'px';
-    }
-    let elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-    document.querySelector(`#cardcontainer[data-id='${task._id}']`).hidden = false;
-
-    if (!elemBelow) return;
-    let currentDroppable = null;
-    let droppableBelow = elemBelow.closest("#progressList > .list2, #doneList > .list3");
-    if (currentDroppable != droppableBelow) {
-      if (currentDroppable) { // null when we were not over a droppable before this event
-        leaveDroppable(currentDroppable);
-      }
-      currentDroppable = droppableBelow;
-      if (currentDroppable) { // null if we're not coming over a droppable now
-        // (maybe just left the droppable)
-        enterDroppable(currentDroppable);
-      }
-    }
-    function enterDroppable(elem) {
-      elem.style.background = 'pink';
-    }
-
-    function leaveDroppable(elem) {
-      elem.style.background = '';
-    }
-  }, true);
+}
+function moveRight(id) {
+  let card = document.querySelector(`#cardcontainer[data-id='${id}']`);
+  const lists = document.querySelectorAll(".list");
+  i++;
+  if (i === lists.length) {
+    i = 0;
+  }
+  lists[i].appendChild(card);
+}
+function moveLeft(id) {
+  let card = document.querySelector(`#cardcontainer[data-id='${id}']`);
+  const lists = document.querySelectorAll(".list");
+  i--;
+  if (i < 0) {
+    i = lists.length - 1;
+  }
+  lists[i].appendChild(card);
 }
 function postData(data) {
   const postData = JSON.stringify(data);
@@ -124,14 +115,17 @@ function checkInputData() {
           creator: elements.creator.value,
         });
       } else {
-        putNewData({
-          task_name: elements.taskName.value,
-          description: elements.describe.value,
-          estimate: elements.estimate.value,
-          deadline: elements.deadline.value,
-          priority: elements.priority.value,
-          creator: elements.creator.value,
-        }, form.dataset.id);
+        putNewData(
+          {
+            task_name: elements.taskName.value,
+            description: elements.describe.value,
+            estimate: elements.estimate.value,
+            deadline: elements.deadline.value,
+            priority: elements.priority.value,
+            creator: elements.creator.value,
+          },
+          form.dataset.id
+        );
       }
       form.classList.add("hidden");
       form.reset();
@@ -157,7 +151,7 @@ function deleteATask(id) {
     },
   })
     .then((res) => res.json())
-    .then((data) => { });
+    .then((data) => {});
 }
 function prepareForEdit(data) {
   //show the form
@@ -177,8 +171,7 @@ function prepareForEdit(data) {
     checkInputData();
     form.classList.add("hidden");
     form.reset();
-  })
-
+  });
 }
 function getTasktoEdit(id, callback) {
   fetch(`${dataTrello}/${id}`, {
@@ -213,14 +206,13 @@ function putNewData(data, id) {
       copy.querySelector(".estimate").textContent = "ETC: " + data.estimate;
       copy.querySelector(".deadline").textContent = "Due: " + data.deadline;
       copy.querySelector(".priority").textContent = data.priority;
-      copy.querySelector(".creator").textContent = "Created by: " + data.creator;
+      copy.querySelector(".creator").textContent =
+        "Created by: " + data.creator;
       copy.querySelector("button.close").addEventListener("click", (evt) => {
         deleteATask(data._id);
       });
       copy.querySelector("button.editbtn").addEventListener("click", (evt) => {
         getTasktoEdit(data._id, prepareForEdit);
-      })
-
-    }
-    );
+      });
+    });
 }

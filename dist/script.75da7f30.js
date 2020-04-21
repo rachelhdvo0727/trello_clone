@@ -153,6 +153,7 @@ exports.validForm = validForm;
 
 var _vars = require("./partials/vars");
 
+var i = 0;
 window.addEventListener("DOMContentLoaded", start);
 
 function start() {
@@ -187,9 +188,6 @@ function showData(e) {
 function showTasks(task) {
   var cardTemplate = document.querySelector("template").content;
   var clone = cardTemplate.cloneNode(true);
-  var isDown = false;
-  var mousePosition;
-  var offset = [0, 0];
   clone.querySelector("#cardcontainer").dataset.id = task._id;
   clone.querySelector(".title").textContent = task.task_name; //clone.querySelector(".descr").textContent = task.description;
 
@@ -203,58 +201,38 @@ function showTasks(task) {
   clone.querySelector("button.editbtn").addEventListener("click", function (evt) {
     getTasktoEdit(task._id, prepareForEdit);
   });
+  clone.querySelector(".mvright").addEventListener("click", function () {
+    moveRight(task._id);
+  });
+  clone.querySelector(".mvleft").addEventListener("click", function () {
+    moveLeft(task._id);
+  });
 
   _vars.displayList.appendChild(clone);
+}
 
-  document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).addEventListener("mousedown", function (evt) {
-    document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).style.position = "absolute";
-    isDown = true;
-    offset = [document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).offsetLeft - evt.clientX, document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).offsetTop - evt.clientY];
-  }, true);
-  document.addEventListener('mouseup', function () {
-    isDown = false;
-  }, true);
-  document.addEventListener('mousemove', function (event) {
-    event.preventDefault();
+function moveRight(id) {
+  var card = document.querySelector("#cardcontainer[data-id='".concat(id, "']"));
+  var lists = document.querySelectorAll(".list");
+  i++;
 
-    if (isDown) {
-      mousePosition = {
-        x: event.clientX,
-        y: event.clientY
-      };
-      document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).style.left = mousePosition.x + offset[0] + 'px';
-      document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).style.top = mousePosition.y + offset[1] + 'px';
-    }
+  if (i === lists.length) {
+    i = 0;
+  }
 
-    var elemBelow = document.elementFromPoint(event.clientX, event.clientY);
-    document.querySelector("#cardcontainer[data-id='".concat(task._id, "']")).hidden = false;
-    if (!elemBelow) return;
-    var currentDroppable = null;
-    var droppableBelow = elemBelow.closest("#progressList > .list2, #doneList > .list3");
+  lists[i].appendChild(card);
+}
 
-    if (currentDroppable != droppableBelow) {
-      if (currentDroppable) {
-        // null when we were not over a droppable before this event
-        leaveDroppable(currentDroppable);
-      }
+function moveLeft(id) {
+  var card = document.querySelector("#cardcontainer[data-id='".concat(id, "']"));
+  var lists = document.querySelectorAll(".list");
+  i--;
 
-      currentDroppable = droppableBelow;
+  if (i < 0) {
+    i = lists.length - 1;
+  }
 
-      if (currentDroppable) {
-        // null if we're not coming over a droppable now
-        // (maybe just left the droppable)
-        enterDroppable(currentDroppable);
-      }
-    }
-
-    function enterDroppable(elem) {
-      elem.style.background = 'pink';
-    }
-
-    function leaveDroppable(elem) {
-      elem.style.background = '';
-    }
-  }, true);
+  lists[i].appendChild(card);
 }
 
 function postData(data) {
@@ -431,7 +409,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49985" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58882" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
