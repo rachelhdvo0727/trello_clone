@@ -1,5 +1,5 @@
 require("@babel/polyfill");
-import { moment } from "moment";
+import moment from "moment";
 import {
   dataTrello,
   apiKey,
@@ -12,7 +12,6 @@ import {
   errormsgs,
   validForm,
 } from "./jsmodules/vars";
-//var moment = require("moment");
 
 // const apiKey = "5e956ffd436377171a0c230f";
 // const dataTrello = "https://frontendspring20-e4cd.restdb.io/rest/trelloclone";
@@ -52,7 +51,59 @@ function getData() {
 function showData(e) {
   e.forEach(showTasks);
 }
+function timeSince(date) {
+  var seconds = Math.floor((new Date() - date) / 1000);
+
+  var interval = Math.floor(seconds / 31536000);
+
+  if (interval > 1) {
+    return interval + " years";
+  }
+  interval = Math.floor(seconds / 2592000);
+  if (interval > 1) {
+    return interval + " months";
+  }
+  interval = Math.floor(seconds / 86400);
+  if (interval > 1) {
+    return interval + " days";
+  }
+  interval = Math.floor(seconds / 3600);
+  if (interval > 1) {
+    return interval + " hours";
+  }
+  interval = Math.floor(seconds / 60);
+  if (interval > 1) {
+    return interval + " minutes";
+  }
+  return Math.floor(seconds) + " seconds";
+}
+var aDay = 24 * 60 * 60 * 1000;
+
+console.log(timeSince(new Date(Date.now())));
+function parseISOString() {
+  var n = [];
+  var d = new Date(task.deadline);
+  var s = d.getUTCDate();
+  n.push(s);
+  s = d.getUTCMonth();
+  n.push(s);
+  s = d.getUTCFullYear();
+  n.push(s);
+}
 function showTasks(task) {
+  // function parseISOString() {
+  //   var n = [];
+  //   var d = new Date(task.deadline);
+  //   var s = d.getUTCDate();
+  //   n.push(s);
+  //   s = d.getUTCMonth();
+  //   n.push(s);
+  //   s = d.getUTCFullYear();
+  //   n.push(s);
+  //   let newN;
+  //   newN = n.replace(/,/g, "/");
+  //   return newN;
+  // }
   const cardTemplate = document.querySelector("template").content;
   const clone = cardTemplate.cloneNode(true);
   clone.querySelector("#cardcontainer").dataset.id = task._id;
@@ -61,6 +112,7 @@ function showTasks(task) {
   clone.querySelector(".estimate").textContent = "ETC: " + task.estimate;
   clone.querySelector(".deadline").textContent =
     "Due: " + moment(task.deadline).format("DD/MM/YYYY HH.MM");
+  clone.querySelector(".deadline").textContent = "Due: " + parseISOString();
   clone.querySelector(".priority").textContent = task.priority;
   clone.querySelector(".creator").textContent = "By: " + task.creator;
   clone.querySelector(".date_added").textContent = moment(
