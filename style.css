@@ -100,8 +100,9 @@ button {
 button.addNew {
   z-index: 999;
   margin-top: -1vw;
-  background: url("assets/plus-solid.svg") no-repeat center 100% transparent;
-  background-image: url("assets/plus-solid.svg");
+  background: url("static/assets/plus-solid.svg") no-repeat center 100%
+    transparent;
+  background-image: url("static/assets/plus-solid.svg");
   height: 2vw;
   width: 3vw;
 }
@@ -111,7 +112,7 @@ button.add {
   align-self: flex-end;
 }
 button.editbtn {
-  background: url("assets/pencil-alt-solid.svg") no-repeat center 100%
+  background: url("static/assets/pencil-alt-solid.svg") no-repeat center 100%
     transparent;
   height: 1.2vw;
   width: 1.7vw;
