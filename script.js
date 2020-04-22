@@ -1,5 +1,6 @@
 require("@babel/polyfill");
-import { moment } from "moment";
+var moment = require("moment");
+//import moment from "moment";
 import {
   dataTrello,
   apiKey,
@@ -12,7 +13,7 @@ import {
   errormsgs,
   validForm,
 } from "./partials/vars";
-
+var moment = require("moment");
 let i = 0;
 window.addEventListener("DOMContentLoaded", start);
 
