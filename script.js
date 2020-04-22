@@ -1,17 +1,26 @@
-import "@babel/polyfill";
-import moment from "moment";
-import {
-  dataTrello,
-  apiKey,
-  addNewBtn,
-  form,
-  displayList,
-  cards,
-  elements,
-  formElms,
-  errormsgs,
-  validForm,
-} from "./jsmodules/vars";
+// import moment from "moment";
+// import {
+//   dataTrello,
+//   apiKey,
+//   addNewBtn,
+//   form,
+//   displayList,
+//   cards,
+//   elements,
+//   formElms,
+//   errormsgs,
+//   validForm,
+// } from "./jsmodules/vars";
+const apiKey = "5e956ffd436377171a0c230f";
+const dataTrello = "https://frontendspring20-e4cd.restdb.io/rest/trelloclone";
+const addNewBtn = document.querySelector(".addNew");
+const form = document.querySelector("form");
+const displayList = document.querySelector("#todoList > .list");
+const elements = form.elements;
+const formElms = form.querySelectorAll("input");
+const errormsgs = document.querySelectorAll(".msg");
+const cards = document.querySelectorAll("#cardcontainer");
+let validForm = true;
 document.addEventListener("DOMContentLoaded", start);
 
 let i = 0;
@@ -46,13 +55,13 @@ function showTasks(task) {
   clone.querySelector(".title").textContent = task.task_name;
   clone.querySelector(".descr").textContent = task.description;
   clone.querySelector(".estimate").textContent = "ETC: " + task.estimate;
-  clone.querySelector(".deadline").textContent =
-    "Due: " + moment(task.deadline).format("DD/MM/YYYY HH.MM");
+  //clone.querySelector(".deadline").textContent =
+  // "Due: " + moment(task.deadline).format("DD/MM/YYYY HH.MM");
   clone.querySelector(".priority").textContent = task.priority;
   clone.querySelector(".creator").textContent = "By: " + task.creator;
-  clone.querySelector(".date_added").textContent = moment(
-    task.date_added
-  ).fromNow();
+  //clone.querySelector(".date_added").textContent = moment(
+  // task.date_added
+  //).fromNow();
   clone.querySelector("button.close").addEventListener("click", () => {
     deleteATask(task._id);
   });
