@@ -1,28 +1,28 @@
 require("@babel/polyfill");
 // import moment from "moment";
-import {
-  dataTrello,
-  apiKey,
-  addNewBtn,
-  form,
-  displayList,
-  cards,
-  elements,
-  formElms,
-  errormsgs,
-  validForm,
-} from "./jsmodules/vars";
+// import {
+//   dataTrello,
+//   apiKey,
+//   addNewBtn,
+//   form,
+//   displayList,
+//   cards,
+//   elements,
+//   formElms,
+//   errormsgs,
+//   validForm,
+// } from "./jsmodules/vars";
 var moment = require("moment");
-// const apiKey = "5e956ffd436377171a0c230f";
-// const dataTrello = "https://frontendspring20-e4cd.restdb.io/rest/trelloclone";
-// const addNewBtn = document.querySelector(".addNew");
-// const form = document.querySelector("form");
-// const displayList = document.querySelector("#todoList > .list");
-// const elements = form.elements;
-// const formElms = form.querySelectorAll("input");
-// const errormsgs = document.querySelectorAll(".msg");
-// const cards = document.querySelectorAll("#cardcontainer");
-// let validForm = true;
+const apiKey = "5e956ffd436377171a0c230f";
+const dataTrello = "https://frontendspring20-e4cd.restdb.io/rest/trelloclone";
+const addNewBtn = document.querySelector(".addNew");
+const form = document.querySelector("form");
+const displayList = document.querySelector("#todoList > .list");
+const elements = form.elements;
+const formElms = form.querySelectorAll("input");
+const errormsgs = document.querySelectorAll(".msg");
+const cards = document.querySelectorAll("#cardcontainer");
+let validForm = true;
 document.addEventListener("DOMContentLoaded", start);
 
 let i = 0;
