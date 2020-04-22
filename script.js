@@ -1,18 +1,29 @@
 require("@babel/polyfill");
 var moment = require("moment");
 //import moment from "moment";
-import {
-  dataTrello,
-  apiKey,
-  addNewBtn,
-  form,
-  displayList,
-  cards,
-  elements,
-  formElms,
-  errormsgs,
-  validForm,
-} from "./partials/vars";
+// import {
+//   dataTrello,
+//   apiKey,
+//   addNewBtn,
+//   form,
+//   displayList,
+//   cards,
+//   elements,
+//   formElms,
+//   errormsgs,
+//   validForm,
+// } from "./partials/vars";
+const apiKey = "5e956ffd436377171a0c230f";
+const dataTrello =
+  "https://frontendspring20-e4cd.restdb.io/rest/trelloclone";
+const addNewBtn = document.querySelector(".addNew");
+const form = document.querySelector("form");
+const displayList = document.querySelector("#todoList > .list");
+const elements = form.elements;
+const formElms = form.querySelectorAll("input");
+const errormsgs = document.querySelectorAll(".msg");
+const cards = document.querySelectorAll("#cardcontainer");
+let validForm = true;
 var moment = require("moment");
 let i = 0;
 window.addEventListener("DOMContentLoaded", start);
