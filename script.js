@@ -1,5 +1,5 @@
-"use strict";
-import moment from "./node_modules/moment/moment.js";
+require("@babel/polyfill");
+import moment from "moment";
 import {
   dataTrello,
   apiKey,
