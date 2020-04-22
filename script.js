@@ -1,4 +1,5 @@
-import moment from "moment";
+require("@babel/polyfill");
+import { moment } from "moment";
 import {
   dataTrello,
   apiKey,
@@ -12,7 +13,7 @@ import {
   validForm,
 } from "./jsmodules/vars";
 //var moment = require("moment");
-require("@babel/polyfill");
+
 // const apiKey = "5e956ffd436377171a0c230f";
 // const dataTrello = "https://frontendspring20-e4cd.restdb.io/rest/trelloclone";
 // const addNewBtn = document.querySelector(".addNew");
