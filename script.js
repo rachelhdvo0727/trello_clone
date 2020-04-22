@@ -1,5 +1,5 @@
 require("@babel/polyfill");
-import moment from "moment";
+import { moment } from "moment";
 import {
   dataTrello,
   apiKey,
