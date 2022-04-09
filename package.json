@@ -20,7 +20,7 @@
   "homepage": "https://github.com/rachelhdvo0727/trello_clone#readme",
   "devDependencies": {
     "@babel/polyfill": "^7.8.7",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-static-files-copy": "^2.3.1"
   }
